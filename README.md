@@ -42,7 +42,7 @@ You can modify or contribute to this project by following the steps below:
 - [Clone](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) to a location on your machine.  
  ```bash  
  # Clone the repository 
- $> git clone https://github.com/serfati/covid_bloodtest.git  
+ $> git clone https://github.com/serfati/snapshot-callback.git  
 
  # Navigate to the directory 
  $> cd snapshot-callback
