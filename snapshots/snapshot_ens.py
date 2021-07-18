@@ -1,16 +1,12 @@
 import math
 import os
-import glob
 
 from keras import backend as K
 from keras.layers import *
-from keras.models import Model
 from keras.callbacks import Callback
 
 import sys
 sys.path.append("..") # Adds higher directory to python modules path.
-from baseline.baseline import Baseline
-
 class Snapshot(Callback):
 
     def __init__(self, folder_path, nb_epochs, nb_cycles=5, verbose=0):
@@ -69,23 +65,3 @@ class Snapshot(Callback):
         lr = math.pi * (epoch % self.period) / self.period
         lr = self.base_lr / 2 * (math.cos(lr) + 1)
         return lr
-
-def load_ensambl(folder, x_in, x_out, keep_last=None):
-    paths = glob.glob(os.path.join(folder, 'weights_cycle_*.h5'))
-    print('Found:', ', '.join(paths))
-    if keep_last is not None:
-        paths = sorted(paths)[-keep_last:]
-    print('Loading:', ', '.join(paths))
-
-    outputs = []
-
-    for i, path in enumerate(paths):
-        m = Baseline(x_in, x_out).baseline()
-        m.load_weights(path)
-        outputs.append(m.output)
-
-    shape = outputs[0].get_shape().as_list()
-    x = Lambda(lambda x: K.mean(K.stack(x, axis=0), axis=0),
-               output_shape=lambda _: shape)(outputs)
-    model = Model(inputs=x_in, outputs=x)
-    return model
