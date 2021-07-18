@@ -8,15 +8,16 @@
 
 
 # Description  
+This repository contains an implementation in Keras of the paper Snapshot Ensembles: Train 1, get M for free.
 
-
+The authors use a modified version of cyclical learning rate to force the model to fall into local minima at the end of each cycle. Each local minima makes different mistakes. Thus the ensemble of every local minima helps to reach a better generalization.
 
 ### Training and Testing Models
 Let us try the following models:
 
 - Baseline
-- XGBoost
-- Logistic Regression
+- Snapshot
+- ELRS - ours
 
 Scoring function will be F1, since it is more costly to have false negatives than false positives
 
